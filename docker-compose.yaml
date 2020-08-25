@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    24g_api:
+        container_name: 24g_api
+        command: 'npm run start-debug'
+        build: .
+        volumes:
+            - .:/app
+        depends_on:
+            - 24g_db
+        ports:
+            - '8081:8080' # server port
+            - '9228:9228' # port for debugging tests
+            - '9229:9229' # port for debugging process (npm start-debug)
+    24g_db:
+        container_name: '24g_db'
+        image: mysql:latest
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+            MYSQL_ROOT_PASSWORD: ''
+            MYSQL_USER: '24g'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_DATABASE: '24G'
+        ports:
+            - '3306:3306'
+        volumes:
+            # we used a named volume so that data persists between up'ing and down'ing
+            - db_data:/var/lib/mysql
+volumes:
+    db_data:

@@ -1,0 +1,1 @@
+docker exec -it 24g_api node --inspect=0.0.0.0:9228 /app/node_modules/jest/bin/jest.js --runInBand --forceExit --coverage

@@ -2,46 +2,40 @@ const { DataTypes, Model, Sequelize } = require('sequelize');
 const { sequelize } = require('../sequelize');
 const timestampConfig = require('../timestamp.config');
 
-const { STRING, UUID, INTEGER } = DataTypes;
+const { STRING, UUID } = DataTypes;
 
-class Video extends Model {}
+class User extends Model {}
 
-const videoDTO = {
+const userDTO = {
     id: {
         type: UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
     },
-    title: {
+    email: {
         type: STRING,
+        unique: true,
         allowNull: false,
     },
-    videoLink: {
+    firstName: {
         type: STRING,
-        allowNull: false,
-        field: 'video_link',
+        field: 'first_name',
     },
-    thumbLink: {
+    lastName: {
         type: STRING,
-        allowNull: false,
-        field: 'thumb_link',
-    },
-    views: {
-        type: INTEGER,
-        allowNull: false,
-        defaultValue: 0,
+        field: 'last_name',
     },
     ...timestampConfig.fields,
 };
 
-Video.init(videoDTO, {
+User.init(userDTO, {
     ...timestampConfig.tableOptions,
     sequelize,
-    tableName: 'videos',
+    tableName: 'users',
     underscored: true,
 });
 
 module.exports = {
-    model: Video,
-    videoDTO,
+    model: User,
+    userDTO,
 };

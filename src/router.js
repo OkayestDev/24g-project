@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const loginRoutes = require('./api/login/login.routes');
 const healthRoutes = require('./api/health/health.routes');
+const videoRoutes = require('./api/videos/video.routes');
 
 router.use('/health', healthRoutes);
-router.use('/login', loginRoutes);
+router.use('/videos', videoRoutes);
 
 module.exports = {
     router,

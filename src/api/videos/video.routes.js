@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get('/', videoController.getVideos);
 
-router.post('/:id/dislike', videoController.createVideoDislike);
+router.post('/:videoId/dislike', videoController.createVideoDislike);
 
-router.post('/:id/like', videoController.createVideoLike);
+router.post('/:videoId/like', videoController.createVideoLike);
 
-router.put('/:id/view', videoController.incrementView);
+router.put('/:videoId/view', videoController.incrementView);
 
-router.post('/:id/comment', videoController.createVideoComment);
+router.post('/:videoId/comment', videoController.createVideoComment);
 
 module.exports = router;

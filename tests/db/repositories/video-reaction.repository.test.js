@@ -1,5 +1,6 @@
-const videoReactionRepository = require('../../src/db/repositories/video-reaction.repository');
+const videoReactionRepository = require('../../../src/db/repositories/video-reaction.repository');
 const { User, Video } = require('../../../src/db/models');
+const { LIKE, DISLIKE } = require('../../../src/db/models/video-reaction.model');
 
 describe('videoReactionRepository', () => {
     const mockUser = {
@@ -12,7 +13,6 @@ describe('videoReactionRepository', () => {
         videoLink: 'fake video link',
         thumbLink: 'fake thumb link',
     };
-    const mockVideoComment = 'Perfect video. I rate 5/7';
     let video;
     let user;
 
@@ -35,10 +35,24 @@ describe('videoReactionRepository', () => {
     });
 
     describe('createVideoLike', () => {
-        test('create and returns video like reaction', async () => {});
+        test('create and returns video like reaction', async () => {
+            const createdVideoReaction = await videoReactionRepository.createVideoLike({
+                videoId: video.id,
+                userId: user.id,
+            });
+            expect(createdVideoReaction.reaction).toBe(LIKE);
+            expect(createdVideoReaction.id).toBeTruthy();
+        });
     });
 
     describe('createVideoDislike', () => {
-        test('create and returns video dislike reaction', async () => {});
+        test('create and returns video dislike reaction', async () => {
+            const createdVideoReaction = await videoReactionRepository.createVideoDislike({
+                videoId: video.id,
+                userId: user.id,
+            });
+            expect(createdVideoReaction.reaction).toBe(DISLIKE);
+            expect(createdVideoReaction.id).toBeTruthy();
+        });
     });
 });

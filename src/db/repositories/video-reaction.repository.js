@@ -1,5 +1,5 @@
 const { VideoReaction } = require('../models');
-const { LIKE, DISLIKE } = require('../models/video-reaction');
+const { LIKE, DISLIKE } = require('../models/video-reaction.model');
 
 const createVideoLike = async ({ videoId, userId }) =>
     VideoReaction.create({

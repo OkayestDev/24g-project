@@ -68,9 +68,9 @@ describe('videoRepository', () => {
         });
     });
 
-    describe('incrementViews', () => {
+    describe('incrementView', () => {
         test("increments video's views", async () => {
-            const isVideoUpdated = await videoRepository.incrementViews(video.id);
+            const isVideoUpdated = await videoRepository.incrementView(video.id);
             expect(isVideoUpdated).toBe(true);
             await video.reload();
             expect(video.views).toBe(1);

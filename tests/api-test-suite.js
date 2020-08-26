@@ -5,7 +5,7 @@ const POST = 'post';
 const DELETE = 'delete';
 const PUT = 'put';
 
-const apiRequest = async (method, url, params = {}) => {
+const apiRequest = async (method, url, userId = null, params = {}) => {
     let requestBuilder;
 
     switch (method) {
@@ -25,10 +25,26 @@ const apiRequest = async (method, url, params = {}) => {
             throw new Error(`No method for: ${method}`);
     }
 
-    return requestBuilder.set('Content-Type', 'application/json').then((res) => ({
-        status: res.statusCode,
-        ...res.body,
-    }));
+    return requestBuilder
+        .set('Content-Type', 'application/json')
+        .set('Authorization', userId)
+        .then((res) => ({
+            status: res.statusCode,
+            ...res.body,
+        }));
+};
+
+const createMockResponse = () => {
+    const res = {};
+    res.status = (statusCode) => {
+        res.status = statusCode;
+        return res;
+    };
+    res.json = (json) => {
+        res.json = json;
+        return res;
+    };
+    return res;
 };
 
 module.exports = {
@@ -37,4 +53,5 @@ module.exports = {
     POST,
     DELETE,
     PUT,
+    createMockResponse,
 };

@@ -13,10 +13,10 @@ const getVideos = async () =>
         ],
     });
 
-const incrementViews = async (videoId) =>
+const incrementView = async (videoId) =>
     Video.increment({ views: 1 }, { where: { id: videoId } }).then(Boolean);
 
 module.exports = {
     getVideos,
-    incrementViews,
+    incrementView,
 };
